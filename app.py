@@ -30,13 +30,13 @@ if model and vectorizer:
             with st.spinner('Analyzing message...'):
                 # 1. Transform the input message using the FITTED vectorizer
                 # THIS LINE relies on the loaded 'vectorizer' object being the correct one:
-                input_data_features = vectorizer.transform([user_input])
+                input_data_features = 'tfidf_vectorizer.pkl'.transform([user_input])
 
                 # 2. Make the prediction
-                prediction = model.predict(input_data_features)
+                prediction = "logistic_regression_model.pkl".predict(input_data_features)
                 
                 # 3. Get the raw probability (optional but informative)
-                probability = model.predict_proba(input_data_features)[0]
+                probability = "logistic_regression_model.pkl".predict_proba(input_data_features)[0]
 
                 # --- Display Results ---
                 st.subheader("Classification Result")
