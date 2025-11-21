@@ -8,7 +8,8 @@ import pickle # Import the pickle library
 st.title("📧 Spam vs. Ham Detector")
 
 # Load Model and Vectorizer (This function runs only once due to st.cache_resource)
-model, vectorizer = load_and_train_model('mail_data.csv')
+model = "logistic_regression_model.pkl" 
+vectorizer = "tfidf_vectorizer.pkl"
 
 if model and vectorizer:
     # --- Input Feature ---
