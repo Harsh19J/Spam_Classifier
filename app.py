@@ -8,9 +8,21 @@ import pickle # Import the pickle library
 st.title("📧 Spam vs. Ham Detector")
 
 # Load Model and Vectorizer (This function runs only once due to st.cache_resource)
-model = "logistic_regression_model.pkl" 
-vectorizer = "tfidf_vectorizer.pkl"
+MODEL_PATH = 'logistic_regression_model.pkl'
+VECTORIZER_PATH = 'tfidf_vectorizer.pkl'
 
+# --- 1. Dedicated Loading Function ---
+def load_components():
+    # Load the trained model
+    with open(MODEL_PATH, 'rb') as f:
+        model = pickle.load(f)
+            
+    # Load the fitted vectorizer
+    with open(VECTORIZER_PATH, 'rb') as f:
+        vectorizer = pickle.load(f)
+        
+    return model, vectorizer
+        
 if model and vectorizer:
     # --- Input Feature ---
     st.subheader("Enter a Message to Test")
