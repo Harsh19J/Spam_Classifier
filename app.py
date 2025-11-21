@@ -6,8 +6,6 @@ from sklearn.linear_model import LogisticRegression
 import pickle # Import the pickle library
 
 st.title("📧 Spam vs. Ham Detector")
-
-# Load Model and Vectorizer (This function runs only once due to st.cache_resource)
 MODEL_PATH = 'logistic_regression_model.pkl'
 VECTORIZER_PATH = 'tfidf_vectorizer.pkl'
 
@@ -15,14 +13,16 @@ VECTORIZER_PATH = 'tfidf_vectorizer.pkl'
 def load_components():
     # Load the trained model
     with open(MODEL_PATH, 'rb') as file:
-        model = pickle.load(f)
+        model = pickle.load(file)
             
     # Load the fitted vectorizer
     with open(VECTORIZER_PATH, 'rb') as file:
-        vectorizer = pickle.load(f)
+        vectorizer = pickle.load(file)
         
     return model, vectorizer
-        
+
+model, vectorizer = load_components()
+
 if model and vectorizer:
     # --- Input Feature ---
     st.subheader("Enter a Message to Test")
@@ -42,13 +42,13 @@ if model and vectorizer:
             with st.spinner('Analyzing message...'):
                 # 1. Transform the input message using the FITTED vectorizer
                 # THIS LINE relies on the loaded 'vectorizer' object being the correct one:
-                input_data_features = 'tfidf_vectorizer.pkl'.transform([user_input])
+                input_data_features = vectorizer.transform([user_input])
 
                 # 2. Make the prediction
-                prediction = "logistic_regression_model.pkl".predict(input_data_features)
+                prediction = model.predict(input_data_features)
                 
                 # 3. Get the raw probability (optional but informative)
-                probability = "logistic_regression_model.pkl".predict_proba(input_data_features)[0]
+                probability = model.predict_proba(input_data_features)[0]
 
                 # --- Display Results ---
                 st.subheader("Classification Result")
