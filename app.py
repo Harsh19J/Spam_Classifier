@@ -14,11 +14,11 @@ VECTORIZER_PATH = 'tfidf_vectorizer.pkl'
 # --- 1. Dedicated Loading Function ---
 def load_components():
     # Load the trained model
-    with open(MODEL_PATH, 'rb') as f:
+    with open(MODEL_PATH, 'rb') as file:
         model = pickle.load(f)
             
     # Load the fitted vectorizer
-    with open(VECTORIZER_PATH, 'rb') as f:
+    with open(VECTORIZER_PATH, 'rb') as file:
         vectorizer = pickle.load(f)
         
     return model, vectorizer
